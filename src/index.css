@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+  position: relative;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: #dcc07e;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Color Variables (Update as needed) */
+:root {
+  --secondary-color: #d09423;
+  --primary-color: #2b3c5a;
+}
+
+/* Secondary Colors */
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.focus\:ring-secondary:focus {
+  --tw-ring-color: var(--secondary-color);
+}
+
+.hover\:bg-primary:hover {
+  background-color: var(--primary-color);
+}
