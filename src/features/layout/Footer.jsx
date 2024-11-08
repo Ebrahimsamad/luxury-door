@@ -32,6 +32,12 @@ export default function Footer() {
                 الرياض - المملكة العربية السعودية
               </span>
             </div>
+            <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
+              <FaMapMarkerAlt className="text-secondary text-lg lg:text-xl" />
+              <span className="text-sm lg:text-base">
+                الخرج - المملكة العربية السعودية
+              </span>
+            </div>
           </div>
 
           {/* Social Media Icons */}
