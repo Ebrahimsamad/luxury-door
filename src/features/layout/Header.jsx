@@ -14,25 +14,19 @@ export default function Header() {
     <header className="bg-primary text-white">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo Section */}
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to="/dashboard" className="flex items-center space-x-2">
           <img src="/logoo.png" alt="Logo" className="h-12" />
         </Link>
 
         {/* Navigation Links (Desktop) */}
         <nav className="hidden lg:flex items-center space-x-6 text-sm font-semibold">
           <NavLink
-            to="/"
+            to="/dashboard"
             className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             الصفحة الرئيسية
           </NavLink>
           <span />
-          <NavLink
-            to="/about"
-            className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
-          >
-            من نحن
-          </NavLink>
           <NavLink
             to="/wpc"
             className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
@@ -40,11 +34,17 @@ export default function Header() {
             WPC ماهو
           </NavLink>
           <NavLink
+            to="/about"
+            className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
+          >
+            من نحن
+          </NavLink>
+          {/* <NavLink
             to="/types"
             className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             أنواع الأبواب
-          </NavLink>
+          </NavLink> */}
           <NavLink
             to="/certificates"
             className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
@@ -84,16 +84,10 @@ export default function Header() {
       {isMobileMenuOpen && (
         <nav className="flex flex-col items-center space-y-2 lg:hidden text-sm font-semibold py-4">
           <NavLink
-            to="/home"
+            to="/dashboard"
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             الصفحة الرئيسية
-          </NavLink>
-          <NavLink
-            to="/about"
-            className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
-          >
-            من نحن
           </NavLink>
           <NavLink
             to="/wpc"
@@ -102,11 +96,17 @@ export default function Header() {
             WPC ماهو
           </NavLink>
           <NavLink
+            to="/about"
+            className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
+          >
+            من نحن
+          </NavLink>
+          {/* <NavLink
             to="/types"
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             أنواع الأبواب
-          </NavLink>
+          </NavLink> */}
           <NavLink
             to="/certificates"
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"

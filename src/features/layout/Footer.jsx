@@ -10,15 +10,17 @@ export default function Footer() {
       <div className="container mx-auto flex flex-col md:flex-row lg:flex-row lg:justify-between gap-12 lg:gap-16 text-left">
         {/* Logo and Contact Info */}
         <div className="order-1 lg:order-none flex flex-col items-center lg:items-start mb-8 lg:mb-0">
-          <img
-            src="/logoo.png"
-            alt="Luxury Door Logo"
-            className="h-16 mb-6 lg:h-20"
-          />
+          <Link to="/dashboard">
+            <img
+              src="/logoo.png"
+              alt="Luxury Door Logo"
+              className="h-16 mb-6 lg:h-20"
+            />
+          </Link>
           <div className="space-y-4 text-white text-center lg:text-left">
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaPhone className="text-secondary text-lg lg:text-xl" />
-              <span className="text-sm lg:text-base">+966510727255</span>
+              <span className="text-sm lg:text-base">966510727255+</span>
             </div>
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaEnvelope className="text-secondary text-lg lg:text-xl" />
@@ -29,13 +31,13 @@ export default function Footer() {
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaMapMarkerAlt className="text-secondary text-lg lg:text-xl" />
               <span className="text-sm lg:text-base">
-                الرياض - المملكة العربية السعودية
+                الرياض - العارض - طريق الامير تركي بن عبدالعزيز
               </span>
             </div>
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaMapMarkerAlt className="text-secondary text-lg lg:text-xl" />
               <span className="text-sm lg:text-base">
-                الخرج - المملكة العربية السعودية
+                الخرج - طريق الملك سعود
               </span>
             </div>
           </div>
@@ -74,15 +76,15 @@ export default function Footer() {
           <ul className="space-y-3">
             <li>
               <Link
-                to="#"
+                to="/dashboard"
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
-                كتالوج
+                الصفحة الرئيسية
               </Link>
             </li>
             <li>
               <Link
-                to="#"
+                to="/certificates"
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 الشهادات المعتمدة
@@ -90,7 +92,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                to="#"
+                to="/wpc"
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 ماهو WPC
@@ -107,23 +109,23 @@ export default function Footer() {
           <ul className="space-y-3">
             <li>
               <Link
-                to="#"
+                to="/about"
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 معلومات عنا
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="#"
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 أنواع الأبواب
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
-                to="#"
+                to="/contact"
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 تواصل معنا

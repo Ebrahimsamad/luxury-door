@@ -43,7 +43,7 @@ const ContactUs = () => {
           <div className="flex flex-col items-center md:items-start space-y-6">
             <div className="flex items-center  animate-float">
               <FaPhone className="text-secondary text-2xl ml-3 transition-transform duration-300 hover:scale-110" />
-              <span className="text-lg">+966510727255</span>
+              <span className="text-lg">966510727255+</span>
             </div>
             <div className="flex items-center mb-4 animate-float">
               <FaEnvelope className="text-secondary text-2xl ml-3 transition-transform duration-300 hover:scale-110" />
