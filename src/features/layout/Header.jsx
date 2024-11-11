@@ -10,6 +10,10 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header className="bg-primary text-white">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
@@ -85,18 +89,21 @@ export default function Header() {
         <nav className="flex flex-col items-center space-y-2 lg:hidden text-sm font-semibold py-4">
           <NavLink
             to="/dashboard"
+            onClick={closeMobileMenu}
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             الصفحة الرئيسية
           </NavLink>
           <NavLink
             to="/wpc"
+            onClick={closeMobileMenu}
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             WPC ماهو
           </NavLink>
           <NavLink
             to="/about"
+            onClick={closeMobileMenu}
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             من نحن
@@ -109,12 +116,14 @@ export default function Header() {
           </NavLink> */}
           <NavLink
             to="/certificates"
+            onClick={closeMobileMenu}
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             الشهادات المعتمدة
           </NavLink>
           <NavLink
             to="/contact"
+            onClick={closeMobileMenu}
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
             تواصل معنا

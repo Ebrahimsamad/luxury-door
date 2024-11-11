@@ -5,12 +5,15 @@ import { IoLogoYoutube } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <footer className="bg-primary text-white py-10 px-6 md:px-10 lg:px-16 rtl">
       <div className="container mx-auto flex flex-col md:flex-row lg:flex-row lg:justify-between gap-12 lg:gap-16 text-left">
         {/* Logo and Contact Info */}
         <div className="order-1 lg:order-none flex flex-col items-center lg:items-start mb-8 lg:mb-0">
-          <Link to="/dashboard">
+          <Link to="/dashboard" onClick={scrollToTop}>
             <img
               src="/logoo.png"
               alt="Luxury Door Logo"
@@ -77,6 +80,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/dashboard"
+                onClick={scrollToTop}
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 الصفحة الرئيسية
@@ -85,6 +89,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/certificates"
+                onClick={scrollToTop}
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 الشهادات المعتمدة
@@ -93,6 +98,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/wpc"
+                onClick={scrollToTop}
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 ماهو WPC
@@ -110,6 +116,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/about"
+                onClick={scrollToTop}
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 معلومات عنا
@@ -126,6 +133,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/contact"
+                onClick={scrollToTop}
                 className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary flex items-center justify-center lg:justify-start text-white"
               >
                 تواصل معنا
