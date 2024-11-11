@@ -59,6 +59,10 @@
   background-color: var(--primary-color);
 }
 
+body {
+  @apply font-changa;
+}
+
 html,
 body {
   --sb-track-color: #2b3c5a !important;

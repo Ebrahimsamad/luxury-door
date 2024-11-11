@@ -7,6 +7,9 @@ export default {
         primary: "#2b3c5a",
         secondary: "#dcc07e",
       },
+      fontFamily: {
+        changa: ["Changa", "sans-serif"],
+      },
     },
   },
   plugins: [],
