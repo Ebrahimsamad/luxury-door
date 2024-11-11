@@ -63,6 +63,11 @@ body {
   @apply font-changa;
 }
 
+.hide-controls::-webkit-media-controls,
+.hide-controls::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
 html,
 body {
   --sb-track-color: #2b3c5a !important;

@@ -98,8 +98,8 @@ const HeroSection = () => {
         autoPlay
         loop
         muted
-        playsInline // Ensures no fullscreen on mobile
-        className="absolute w-full h-full object-cover brightness-50"
+        playsInline
+        className="absolute w-full h-full object-cover brightness-50 hide-controls"
       />
 
       <div className="absolute inset-0 bg-black opacity-40" />
