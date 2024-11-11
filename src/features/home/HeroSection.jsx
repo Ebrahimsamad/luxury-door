@@ -68,14 +68,15 @@
 // };
 
 // export default HeroSection;
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
 import { useTrail, animated } from "@react-spring/web";
 
 const HeroSection = () => {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 1200, once: true });
   }, []);
@@ -92,14 +93,19 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="relative w-full h-screen bg-[#F8F4EF] flex justify-center items-center overflow-hidden">
+    <section className="relative w-full h-screen flex justify-center items-center overflow-hidden bg-black">
+      {!videoLoaded && <div className="absolute inset-0 bg-black" />}
+
       <video
         src="/bg.mp4"
         autoPlay
         loop
         muted
         playsInline
-        className="absolute w-full h-full object-cover brightness-50 hide-controls"
+        onLoadedData={() => setVideoLoaded(true)}
+        className={`absolute w-full h-full object-cover brightness-50 ${
+          videoLoaded ? "" : "hidden"
+        }`}
       />
 
       <div className="absolute inset-0 bg-black opacity-40" />
