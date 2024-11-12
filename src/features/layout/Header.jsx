@@ -35,7 +35,7 @@ export default function Header() {
             to="/wpc"
             className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
-            WPC ماهو
+            ماهو WPC
           </NavLink>
           <NavLink
             to="/about"
@@ -99,7 +99,7 @@ export default function Header() {
             onClick={closeMobileMenu}
             className="px-3 py-2 w-full text-center rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary"
           >
-            WPC ماهو
+            ماهو WPC
           </NavLink>
           <NavLink
             to="/about"
