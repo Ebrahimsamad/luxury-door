@@ -100,6 +100,10 @@ const HeroSection = () => {
     const video = document.getElementById("background-video");
     if (video) {
       video.play().catch(() => {}); // Prevent errors if autoplay fails
+      if (iOS && video.paused) {
+        // Try to play the video on iOS
+        video.play().catch(() => {});
+      }
     }
   }, []);
 
@@ -126,6 +130,7 @@ const HeroSection = () => {
         loop
         muted
         playsInline
+        controls={false} // Explicitly disable controls
         onLoadedData={() => setVideoLoaded(true)}
         className={`absolute w-full h-full object-cover brightness-50 ${
           videoLoaded ? "" : "hidden"
