@@ -95,6 +95,12 @@ const HeroSection = () => {
     const iOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     setIsIOS(iOS);
+
+    // Ensure the video starts playing on load
+    const video = document.getElementById("background-video");
+    if (video) {
+      video.play().catch(() => {});
+    }
   }, []);
 
   const text = "فخامة باب";
@@ -114,6 +120,7 @@ const HeroSection = () => {
       {!videoLoaded && <div className="absolute inset-0 bg-black" />}
 
       <video
+        id="background-video"
         src="/bg.mp4"
         autoPlay
         loop
