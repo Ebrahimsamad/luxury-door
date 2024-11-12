@@ -113,7 +113,7 @@ const HeroSection = () => {
       {!videoLoaded && <div className="absolute inset-0 bg-black" />}
 
       <video
-        src="/bg.mp4"
+        src="/dooor.mp4"
         autoPlay
         loop
         muted
