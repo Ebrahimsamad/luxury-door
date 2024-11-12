@@ -1,10 +1,12 @@
-// import { useEffect } from "react";
+// import { useEffect, useState } from "react";
 // import AOS from "aos";
 // import "aos/dist/aos.css";
 // import { Link } from "react-router-dom";
 // import { useTrail, animated } from "@react-spring/web";
 
 // const HeroSection = () => {
+//   const [videoLoaded, setVideoLoaded] = useState(false);
+
 //   useEffect(() => {
 //     AOS.init({ duration: 1200, once: true });
 //   }, []);
@@ -21,13 +23,19 @@
 //   });
 
 //   return (
-//     <section className="relative w-full h-screen bg-[#F8F4EF] flex justify-center items-center overflow-hidden">
+//     <section className="relative w-full h-screen flex justify-center items-center overflow-hidden bg-black">
+//       {!videoLoaded && <div className="absolute inset-0 bg-black" />}
+
 //       <video
 //         src="/bg.mp4"
 //         autoPlay
 //         loop
 //         muted
-//         className="absolute w-full h-full object-cover brightness-50"
+//         playsInline
+//         onLoadedData={() => setVideoLoaded(true)}
+//         className={`absolute w-full h-full object-cover brightness-50 ${
+//           videoLoaded ? "" : "hidden"
+//         }`}
 //       />
 
 //       <div className="absolute inset-0 bg-black opacity-40" />
@@ -68,6 +76,7 @@
 // };
 
 // export default HeroSection;
+
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -111,12 +120,12 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black opacity-40" />
 
       <div className="relative z-10 text-center px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="mb-6 ">
+        <div className="mb-6">
           {trail.map((style, index) => (
             <animated.span
               key={index}
               style={style}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-secondary"
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-secondary ios-text-fix"
             >
               {letters[index]}
             </animated.span>
