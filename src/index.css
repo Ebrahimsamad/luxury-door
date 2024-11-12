@@ -101,18 +101,3 @@ body,
 *:focus {
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
 }
-
-/* Ensure consistent font scaling on iOS */
-.ios-text-fix {
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-  line-height: 1.2;
-  letter-spacing: 0.05em;
-}
-
-/* iOS-specific adjustments */
-@supports (-webkit-touch-callout: none) {
-  .ios-text-fix {
-    font-size: 1.05em; /* Slightly increase font size on iOS */
-  }
-}

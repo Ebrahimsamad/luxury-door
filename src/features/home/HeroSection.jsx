@@ -85,9 +85,16 @@ import { useTrail, animated } from "@react-spring/web";
 
 const HeroSection = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // Initialize AOS for animations
     AOS.init({ duration: 1200, once: true });
+
+    // Detect iOS
+    const iOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    setIsIOS(iOS);
   }, []);
 
   const text = "فخامة باب";
@@ -120,12 +127,12 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black opacity-40" />
 
       <div className="relative z-10 text-center px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="mb-6">
+        <div className={`mb-6 ${isIOS ? "whitespace-nowrap" : ""}`}>
           {trail.map((style, index) => (
             <animated.span
               key={index}
               style={style}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-secondary ios-text-fix"
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-secondary"
             >
               {letters[index]}
             </animated.span>
