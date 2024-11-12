@@ -99,7 +99,7 @@ const HeroSection = () => {
     // Ensure the video starts playing on load
     const video = document.getElementById("background-video");
     if (video) {
-      video.play().catch(() => {});
+      video.play().catch(() => {}); // Prevent errors if autoplay fails
     }
   }, []);
 
