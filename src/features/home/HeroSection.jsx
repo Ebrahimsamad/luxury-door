@@ -102,8 +102,8 @@ const HeroSection = () => {
 
   const trail = useTrail(letters.length, {
     opacity: 1,
-    x: 0,
-    from: { opacity: 0, x: 50 },
+    y: isIOS ? 0 : 50, // Apply vertical animation if iOS
+    from: { opacity: 0, y: -50 }, // Start from top for iOS
     config: { mass: 1, tension: 280, friction: 60 },
     delay: 500,
   });
@@ -127,12 +127,15 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black opacity-40" />
 
       <div className="relative z-10 text-center px-6 md:px-12 max-w-7xl mx-auto">
-        <div className={`mb-6 ${isIOS ? "whitespace-nowrap" : ""}`}>
+        {/* Display the letters with a top-to-bottom animation on iOS */}
+        <div className={`mb-6 ${isIOS ? "flex flex-col items-center" : ""}`}>
           {trail.map((style, index) => (
             <animated.span
               key={index}
               style={style}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-secondary"
+              className={`text-4xl sm:text-5xl md:text-6xl font-extrabold text-secondary ${
+                isIOS ? "block" : ""
+              }`}
             >
               {letters[index]}
             </animated.span>
