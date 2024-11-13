@@ -8,6 +8,9 @@ import CertificatesPage from "./pages/CertificatesPage";
 import WpcPage from "./pages/WpcPage";
 import AboutPage from "./pages/AboutPage";
 import WhatsAppButton from "./features/layout/Whatsapp";
+import Design from "./pages/Design";
+import Door from "./pages/Door";
+import SubmitOrder from "./pages/SubmitOrder";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
           <Route path="/certificates" element={<CertificatesPage />} />
           <Route path="/wpc" element={<WpcPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/design" element={<Design />} />
+          <Route path="/design/:categoryId" element={<Door />} />
+          <Route path="/order" element={<SubmitOrder />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

@@ -80,7 +80,12 @@ export default function Header() {
 
         {/* Button Section (Desktop) */}
         <div className="hidden lg:block">
-          <SecondaryButton>صمم بابك</SecondaryButton>
+          <Link
+            to="/design"
+            className="bg-secondary text-white font-bold py-2 px-4 rounded-md hover:bg-opacity-90"
+          >
+            صمم بابك
+          </Link>
         </div>
       </div>
 
@@ -128,7 +133,13 @@ export default function Header() {
           >
             تواصل معنا
           </NavLink>
-          <SecondaryButton>صمم بابك</SecondaryButton>
+          <Link
+            to="/design"
+            onClick={closeMobileMenu}
+            className="bg-secondary text-white font-bold py-2 px-4 rounded-md hover:bg-opacity-90"
+          >
+            صمم بابك
+          </Link>
         </nav>
       )}
     </header>
