@@ -4,7 +4,7 @@ const categories = [
   {
     id: "single-door",
     name: "أبواب مفردة ",
-    image: "/single-door.jpg",
+    image: "/single-door.png",
   },
   {
     id: "single-door-plus",

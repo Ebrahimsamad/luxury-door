@@ -25,7 +25,7 @@ const WPCMaterialComponent = () => {
       {/* Right Section with Door Image */}
       <div className="md:w-1/2 flex justify-center">
         <img
-          src="/single-door.jpg"
+          src="/single-door.png"
           alt="WPC Door"
           className="max-w-xs md:max-w-md object-contain"
         />
