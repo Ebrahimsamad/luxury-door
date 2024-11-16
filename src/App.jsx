@@ -11,10 +11,29 @@ import WhatsAppButton from "./features/layout/Whatsapp";
 import Design from "./pages/Design";
 import Door from "./pages/Door";
 import SubmitOrder from "./pages/SubmitOrder";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster
+        position="top-left"
+        gutter={15}
+        containerStyle={{ margin: "80px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+          },
+        }}
+      />
       <WhatsAppButton />
       <Routes>
         <Route element={<Layout />}>

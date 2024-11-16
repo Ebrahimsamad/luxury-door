@@ -1,145 +1,194 @@
-// import React, { useState } from "react";
+// import { useState, useEffect } from "react";
+// import { useNavigate, useParams } from "react-router-dom";
+// import ProductService from "../../services/productService";
 
-// const DoorConfigurator = ({ categoryId }) => {
-//   // Sample data for colors and shapes
-//   const colors = [
-//     { id: 1, name: "Dark Wood", image: "/2.png" },
-//     { id: 2, name: "Light Wood", image: "/3.png" },
-//     { id: 3, name: "Black", image: "/4.png" },
-//     // Add more colors as needed
-//   ];
-
-//   const shapes = [
-//     { id: 1, name: "Design 1", image: "/cer-1.jpg" },
-//     { id: 2, name: "Design 2", image: "/cer-2.jpg" },
-//     { id: 3, name: "Design 3", image: "/cer-3.jpg" },
-//     // Add more shapes as needed
-//   ];
-
-//   const [selectedColor, setSelectedColor] = useState(colors[0]);
-//   const [selectedShape, setSelectedShape] = useState(shapes[0]);
+// const DoorConfigurator = () => {
+//   const [colors, setColors] = useState([]);
+//   const [shapes, setShapes] = useState([]);
+//   const [selectedColor, setSelectedColor] = useState(null);
+//   const [selectedShape, setSelectedShape] = useState(null);
 //   const [quantity, setQuantity] = useState(1);
-//   const [doorImage, setDoorImage] = useState(selectedShape.image);
-//   const [isLoading, setIsLoading] = useState(false);
+//   const [doorImage, setDoorImage] = useState(null);
+//   const [isDoorLoading, setIsDoorLoading] = useState(false);
+//   const [isOptionsLoading, setIsOptionsLoading] = useState(true);
 
-//   const handleSelection = async () => {
-//     setIsLoading(true);
+//   const navigate = useNavigate();
+//   const { categoryId } = useParams();
 
-//     // Send data to backend
+//   useEffect(() => {
+//     const savedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
+//     if (savedCategory) {
+//       const { colorIds, sharpIds } = savedCategory;
+
+//       setColors(colorIds || []);
+//       setShapes(sharpIds || []);
+
+//       if (colorIds?.length > 0) setSelectedColor(colorIds[0]);
+//       if (sharpIds?.length > 0) setSelectedShape(sharpIds[0]);
+
+//       setIsOptionsLoading(false);
+//     }
+//   }, []);
+
+//   useEffect(() => {
+//     if (categoryId && selectedColor && selectedShape) {
+//       fetchDoorImage(categoryId, selectedColor._id, selectedShape._id);
+//     }
+//   }, [categoryId, selectedColor, selectedShape]);
+
+//   const fetchDoorImage = async (categoryId, colorId, sharpId) => {
+//     if (!categoryId || !colorId || !sharpId) return;
+
+//     setIsDoorLoading(true);
+
 //     try {
-//       const response = await fetch("/api/get-door-image", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           categoryId,
-//           color: selectedColor.name,
-//           shapeModel: selectedShape.name,
-//         }),
-//       });
+//       const filters = { categoryId, colorId, sharpId };
+//       const response = await ProductService.getProductsByFilter(filters);
 
-//       if (response.ok) {
-//         const data = await response.json();
-//         setDoorImage(data.image); // Assuming the response has { image: "image_url" }
+//       if (response?.product?.image) {
+//         setDoorImage(response.product.image);
 //       } else {
-//         console.error("Failed to fetch image from the server.");
+//         setDoorImage(null);
 //       }
 //     } catch (error) {
-//       console.error("Error fetching door image:", error);
+//       console.error("Error fetching door image:", error.message);
 //     } finally {
-//       setIsLoading(false);
+//       setIsDoorLoading(false);
 //     }
 //   };
 
+//   // Handle color selection
+//   const handleColorChange = (color) => {
+//     setSelectedColor(color);
+//   };
+
+//   // Handle shape selection
+//   const handleShapeChange = (shape) => {
+//     setSelectedShape(shape);
+//   };
+
+//   const handleQuantityChange = (e) => {
+//     setQuantity(e.target.value);
+//   };
+
+//   const handleSend = () => {
+//     const doorData = {
+//       color: selectedColor,
+//       shape: selectedShape,
+//       quantity,
+//       doorImage,
+//     };
+//     localStorage.setItem("doorData", JSON.stringify(doorData));
+//     navigate("/order");
+//   };
+
 //   return (
-//     <div className="flex flex-col md:flex-row items-center p-6 text-primary space-y-6 md:space-y-0 md:space-x-8">
-//       {/* Left Panel: Color and Shape Options */}
-//       <div className="flex flex-col items-center space-y-4">
-//         <h2 className="text-xl font-bold mb-4">أبواب مفردة</h2>
+//     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+//       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-screen-xl">
+//         <h2 className="text-2xl font-semibold text-center mb-4 text-primary">
+//           أبواب مفردة
+//         </h2>
 
-//         {/* Color Options */}
-//         <div className="flex flex-wrap gap-2">
-//           {colors.map((color) => (
-//             <button
-//               key={color.id}
-//               onClick={() => setSelectedColor(color)}
-//               className={`w-12 h-12 rounded-full border-2 ${
-//                 selectedColor.id === color.id
-//                   ? "border-primary"
-//                   : "border-gray-300"
-//               }`}
-//             >
-//               <img
-//                 src={color.image}
-//                 alt={color.name}
-//                 className="w-full h-full rounded-full"
-//               />
-//             </button>
-//           ))}
-//         </div>
-
-//         {/* Shape Options */}
-//         <div className="flex flex-wrap gap-2 mt-4">
-//           {shapes.map((shape) => (
-//             <button
-//               key={shape.id}
-//               onClick={() => setSelectedShape(shape)}
-//               className={`w-12 h-12 border-2 ${
-//                 selectedShape.id === shape.id
-//                   ? "border-primary"
-//                   : "border-gray-300"
-//               }`}
-//             >
-//               <img
-//                 src={shape.image}
-//                 alt={shape.name}
-//                 className="w-full h-full"
-//               />
-//             </button>
-//           ))}
-//         </div>
-
-//         {/* Quantity Selector */}
-//         <div className="mt-6 flex items-center">
-//           <label className="mr-2">الكمية</label>
-//           <input
-//             type="number"
-//             min="1"
-//             value={quantity}
-//             onChange={(e) => setQuantity(e.target.value)}
-//             className="w-16 p-1 border border-gray-300 rounded-md text-center"
-//           />
-//         </div>
-
-//         {/* Submit Button */}
-//         <button
-//           className="mt-6 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-dark"
-//           onClick={handleSelection}
-//         >
-//           إرسال
-//         </button>
-
-//         {/* Product Details */}
-//         <div className="text-sm mt-4">
-//           <p>رمز المنتج: غير محدد</p>
-//           <p>التصنيف: أبواب مفردة</p>
-//           <p>Product ID: 27506</p>
-//         </div>
-//       </div>
-
-//       {/* Right Panel: Selected Door Image */}
-//       <div className="w-full md:w-1/2 flex justify-center">
-//         {isLoading ? (
-//           <div className="spinner-border text-primary" role="status">
-//             <span className="sr-only">Loading...</span>
+//         {isOptionsLoading ? (
+//           <div className="flex justify-center items-center mb-4">
+//             <div className="loader animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-primary" />
 //           </div>
 //         ) : (
-//           <img
-//             src={doorImage}
-//             alt={selectedShape.name}
-//             className="w-64 h-auto rounded-lg shadow-lg"
-//           />
+//           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 w-full">
+//             {/* Left Panel: Color and Shape Options */}
+//             <div className="flex flex-col items-center space-y-4 w-full md:w-1/2">
+//               {/* Color Options */}
+//               <div>
+//                 <h3 className="font-semibold text-lg mb-2">اختر اللون</h3>
+//                 <div className="flex flex-wrap justify-center gap-1">
+//                   {colors.map((color) => (
+//                     <button
+//                       key={color._id}
+//                       onClick={() => handleColorChange(color)} // Update color on click
+//                       className={`relative w-12 h-12 rounded-full border-2 transition-all duration-300 ease-in-out ${
+//                         selectedColor && selectedColor._id === color._id
+//                           ? "border-primary shadow-xl scale-105"
+//                           : "border-gray-300"
+//                       }`}
+//                     >
+//                       <img
+//                         src={color.image}
+//                         alt={color.name}
+//                         className="w-full h-full rounded-full object-cover"
+//                       />
+//                       <span className="absolute inset-0 flex items-center justify-center text-white font-semibold text-xs bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-all duration-300">
+//                         {color.name}
+//                       </span>
+//                     </button>
+//                   ))}
+//                 </div>
+//               </div>
+
+//               {/* Shape Options */}
+//               <div>
+//                 <h3 className="font-semibold text-lg mb-2">اختر التصميم</h3>
+//                 <div className="flex flex-wrap justify-center gap-1">
+//                   {shapes.map((shape) => (
+//                     <button
+//                       key={shape._id}
+//                       onClick={() => handleShapeChange(shape)} // Update shape on click
+//                       className={`relative w-12 h-12 border-2 rounded transition-all duration-300 ease-in-out ${
+//                         selectedShape && selectedShape._id === shape._id
+//                           ? "border-primary shadow-xl scale-105"
+//                           : "border-gray-300"
+//                       }`}
+//                     >
+//                       <img
+//                         src={shape.image}
+//                         alt={shape.code}
+//                         className="w-full h-full rounded object-cover"
+//                       />
+//                       <span className="absolute inset-0 flex items-center justify-center text-white font-semibold text-xs bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-all duration-300">
+//                         {shape.code}
+//                       </span>
+//                     </button>
+//                   ))}
+//                 </div>
+//               </div>
+
+//               {/* Quantity Selector */}
+//               <div className="mt-2">
+//                 <label className="mr-2 font-semibold">الكمية</label>
+//                 <input
+//                   type="number"
+//                   min="1"
+//                   value={quantity}
+//                   onChange={handleQuantityChange}
+//                   className="w-16 p-2 border border-gray-300 rounded-md text-center"
+//                 />
+//               </div>
+
+//               {/* Submit Button */}
+//               <button
+//                 className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-dark transition duration-300"
+//                 onClick={handleSend}
+//               >
+//                 إرسال
+//               </button>
+//             </div>
+
+//             {/* Right Panel: Selected Door Image */}
+//             <div className="w-full md:w-1/2 flex justify-center">
+//               {isDoorLoading ? (
+//                 <div className="w-40 h-64 flex items-center justify-center">
+//                   <div className="loader animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-primary"></div>
+//                 </div>
+//               ) : (
+//                 doorImage && (
+//                   <img
+//                     src={doorImage}
+//                     alt={selectedShape?.name || "Selected Shape"}
+//                     className="w-full h-auto md:w-40 md:h-64 rounded-lg shadow-xl"
+//                   />
+//                 )
+//               )}
+//             </div>
+//           </div>
 //         )}
 //       </div>
 //     </div>
@@ -147,215 +196,82 @@
 // };
 
 // export default DoorConfigurator;
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import ProductService from "../../services/productService";
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// import React, { useState } from "react";
-
-// const DoorConfigurator = ({ categoryId = "single-door" }) => {
-//   const colors = [
-//     { id: 1, name: "Dark Wood", image: "/2.png" },
-//     { id: 2, name: "Light Wood", image: "/3.png" },
-//     { id: 3, name: "Black", image: "/4.png" },
-//   ];
-
-//   const shapes = [
-//     { id: 1, name: "Design 1", image: "/cer-1.jpg" },
-//     { id: 2, name: "Design 2", image: "/cer-2.jpg" },
-//     { id: 3, name: "Design 3", image: "/cer-3.jpg" },
-//   ];
-
-//   const [selectedColor, setSelectedColor] = useState(colors[0]);
-//   const [selectedShape, setSelectedShape] = useState(shapes[0]);
-//   const [quantity, setQuantity] = useState(1);
-//   const [doorImage, setDoorImage] = useState(selectedShape.image);
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   const handleSelection = async () => {
-//     setIsLoading(true);
-//     setTimeout(() => {
-//       const dummyResponse = {
-//         image: "https://via.placeholder.com/300x500.png?text=Generated+Door",
-//       };
-//       setDoorImage(dummyResponse.image);
-//       setIsLoading(false);
-//     }, 2000);
-//   };
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-//       <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
-//         <h2 className="text-2xl font-bold text-center mb-6 text-primary">
-//           أبواب مفردة
-//         </h2>
-
-//         <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
-//           {/* Left Panel: Color and Shape Options */}
-//           <div className="flex flex-col items-center space-y-4 w-full md:w-1/2">
-//             {/* Color Options */}
-//             <div>
-//               <h3 className="font-semibold mb-2">اختر اللون</h3>
-//               <div className="flex flex-wrap gap-2 justify-center">
-//                 {colors.map((color) => (
-//                   <button
-//                     key={color.id}
-//                     onClick={() => setSelectedColor(color)}
-//                     className={`w-12 h-12 rounded-full border-2 ${
-//                       selectedColor.id === color.id
-//                         ? "border-primary"
-//                         : "border-gray-300"
-//                     }`}
-//                   >
-//                     <img
-//                       src={color.image}
-//                       alt={color.name}
-//                       className="w-full h-full rounded-full"
-//                     />
-//                   </button>
-//                 ))}
-//               </div>
-//             </div>
-
-//             {/* Shape Options */}
-//             <div>
-//               <h3 className="font-semibold mb-2">اختر التصميم</h3>
-//               <div className="flex flex-wrap gap-2 justify-center">
-//                 {shapes.map((shape) => (
-//                   <button
-//                     key={shape.id}
-//                     onClick={() => setSelectedShape(shape)}
-//                     className={`w-12 h-12 border-2 rounded ${
-//                       selectedShape.id === shape.id
-//                         ? "border-primary"
-//                         : "border-gray-300"
-//                     }`}
-//                   >
-//                     <img
-//                       src={shape.image}
-//                       alt={shape.name}
-//                       className="w-full h-full rounded"
-//                     />
-//                   </button>
-//                 ))}
-//               </div>
-//             </div>
-
-//             {/* Quantity Selector */}
-//             <div className="mt-4">
-//               <label className="mr-2 font-semibold">الكمية</label>
-//               <input
-//                 type="number"
-//                 min="1"
-//                 value={quantity}
-//                 onChange={(e) => setQuantity(e.target.value)}
-//                 className="w-16 p-1 border border-gray-300 rounded-md text-center"
-//               />
-//             </div>
-
-//             {/* Submit Button */}
-//             <button
-//               className="mt-6 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-dark transition duration-300"
-//               onClick={handleSelection}
-//             >
-//               إرسال
-//             </button>
-//           </div>
-
-//           {/* Right Panel: Selected Door Image */}
-//           <div className="w-full md:w-1/2 flex justify-center">
-//             {isLoading ? (
-//               <div className="w-64 h-96 flex items-center justify-center">
-//                 <div className="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
-//               </div>
-//             ) : (
-//               <img
-//                 src={doorImage}
-//                 alt={selectedShape.name}
-//                 className="w-64 h-auto rounded-lg shadow-lg"
-//               />
-//             )}
-//           </div>
-//         </div>
-
-//         {/* Product Details */}
-//         <div className="text-center text-sm mt-8">
-//           <p>رمز المنتج: غير محدد</p>
-//           <p>التصنيف: أبواب مفردة</p>
-//           <p>Product ID: 27506</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DoorConfigurator;
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-const DoorConfigurator = ({ categoryId = "single-door" }) => {
+const DoorConfigurator = () => {
   const [colors, setColors] = useState([]);
   const [shapes, setShapes] = useState([]);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedShape, setSelectedShape] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(""); // Change initial state to an empty string
   const [doorImage, setDoorImage] = useState(null);
   const [isDoorLoading, setIsDoorLoading] = useState(false);
-  const [isOptionsLoading, setIsOptionsLoading] = useState(true); // New state for colors and shapes loading
+  const [isOptionsLoading, setIsOptionsLoading] = useState(true);
 
   const navigate = useNavigate();
+  const { categoryId } = useParams();
 
   useEffect(() => {
-    // Simulate loading shapes and colors from backend
-    setTimeout(() => {
-      const dummyColors = [
-        { id: 1, name: "Dark Wood", image: "/2.png" },
-        { id: 2, name: "Light Wood", image: "/3.png" },
-        { id: 3, name: "Black", image: "/4.png" },
-      ];
-      const dummyShapes = [
-        { id: 1, name: "Design 1", image: "/cer-1.jpg" },
-        { id: 2, name: "Design 2", image: "/cer-2.jpg" },
-        { id: 3, name: "Design 3", image: "/cer-3.jpg" },
-      ];
-      setColors(dummyColors);
-      setShapes(dummyShapes);
-      setSelectedColor(dummyColors[0]);
-      setSelectedShape(dummyShapes[0]);
+    const savedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
+    if (savedCategory) {
+      const { colorIds, sharpIds } = savedCategory;
+
+      setColors(colorIds || []);
+      setShapes(sharpIds || []);
+
+      if (colorIds?.length > 0) setSelectedColor(colorIds[0]);
+      if (sharpIds?.length > 0) setSelectedShape(sharpIds[0]);
+
       setIsOptionsLoading(false);
-    }, 2000);
+    }
   }, []);
 
   useEffect(() => {
-    // Fetch door image when color or shape changes
-    if (selectedColor && selectedShape) {
-      fetchDoorImage();
+    if (categoryId && selectedColor && selectedShape) {
+      fetchDoorImage(categoryId, selectedColor._id, selectedShape._id);
     }
-  }, [selectedColor, selectedShape]);
+  }, [categoryId, selectedColor, selectedShape]);
 
-  const fetchDoorImage = async () => {
+  const fetchDoorImage = async (categoryId, colorId, sharpId) => {
+    if (!categoryId || !colorId || !sharpId) return;
+
     setIsDoorLoading(true);
-    setTimeout(() => {
-      const dummyResponse = {
-        image: "https://via.placeholder.com/300x500.png?text=Generated+Door",
-      };
-      setDoorImage(dummyResponse.image);
+
+    try {
+      const filters = { categoryId, colorId, sharpId };
+      const response = await ProductService.getProductsByFilter(filters);
+
+      if (response?.product?.image) {
+        setDoorImage(response.product.image);
+      } else {
+        setDoorImage(null);
+      }
+    } catch (error) {
+      console.error("Error fetching door image:", error.message);
+    } finally {
       setIsDoorLoading(false);
-    }, 2000);
+    }
   };
 
+  // Handle color selection
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
 
+  // Handle shape selection
   const handleShapeChange = (shape) => {
     setSelectedShape(shape);
   };
 
+  // Handle quantity change and validation
   const handleQuantityChange = (e) => {
-    setQuantity(e.target.value);
+    const value = e.target.value;
+    // Allow only digits and ensure it's a valid positive number
+    if (/^\d*$/.test(value)) {
+      setQuantity(value);
+    }
   };
 
   const handleSend = () => {
@@ -371,38 +287,41 @@ const DoorConfigurator = ({ categoryId = "single-door" }) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
-        <h2 className="text-2xl font-bold text-center mb-6 text-primary">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-screen-xl">
+        <h2 className="text-2xl font-semibold text-center mb-4 text-primary">
           أبواب مفردة
         </h2>
 
         {isOptionsLoading ? (
-          <div className="flex justify-center items-center mb-6">
-            <div className="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
+          <div className="flex justify-center items-center mb-4">
+            <div className="loader animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-primary" />
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+          <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 w-full">
             {/* Left Panel: Color and Shape Options */}
             <div className="flex flex-col items-center space-y-4 w-full md:w-1/2">
               {/* Color Options */}
               <div>
-                <h3 className="font-semibold mb-2">اختر اللون</h3>
-                <div className="flex flex-wrap gap-2 justify-center">
+                <h3 className="font-semibold text-lg mb-2">اختر اللون</h3>
+                <div className="flex flex-wrap justify-center gap-1">
                   {colors.map((color) => (
                     <button
-                      key={color.id}
-                      onClick={() => handleColorChange(color)}
-                      className={`w-12 h-12 rounded-full border-2 ${
-                        selectedColor && selectedColor.id === color.id
-                          ? "border-primary"
+                      key={color._id}
+                      onClick={() => handleColorChange(color)} // Update color on click
+                      className={`relative w-12 h-12 rounded-full border-2 transition-all duration-300 ease-in-out ${
+                        selectedColor && selectedColor._id === color._id
+                          ? "border-primary shadow-xl scale-105"
                           : "border-gray-300"
                       }`}
                     >
                       <img
                         src={color.image}
                         alt={color.name}
-                        className="w-full h-full rounded-full"
+                        className="w-full h-full rounded-full object-cover"
                       />
+                      <span className="absolute inset-0 flex items-center justify-center text-white font-semibold text-xs bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-all duration-300">
+                        {color.name}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -410,43 +329,46 @@ const DoorConfigurator = ({ categoryId = "single-door" }) => {
 
               {/* Shape Options */}
               <div>
-                <h3 className="font-semibold mb-2">اختر التصميم</h3>
-                <div className="flex flex-wrap gap-2 justify-center">
+                <h3 className="font-semibold text-lg mb-2">اختر التصميم</h3>
+                <div className="flex flex-wrap justify-center gap-1">
                   {shapes.map((shape) => (
                     <button
-                      key={shape.id}
-                      onClick={() => handleShapeChange(shape)}
-                      className={`w-12 h-12 border-2 rounded ${
-                        selectedShape && selectedShape.id === shape.id
-                          ? "border-primary"
+                      key={shape._id}
+                      onClick={() => handleShapeChange(shape)} // Update shape on click
+                      className={`relative w-12 h-12 border-2 rounded transition-all duration-300 ease-in-out ${
+                        selectedShape && selectedShape._id === shape._id
+                          ? "border-primary shadow-xl scale-105"
                           : "border-gray-300"
                       }`}
                     >
                       <img
                         src={shape.image}
-                        alt={shape.name}
-                        className="w-full h-full rounded"
+                        alt={shape.code}
+                        className="w-full h-full rounded object-cover"
                       />
+                      <span className="absolute inset-0 flex items-center justify-center text-white font-semibold text-xs bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-all duration-300">
+                        {shape.code}
+                      </span>
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Quantity Selector */}
-              <div className="mt-4">
+              <div className="mt-2">
                 <label className="mr-2 font-semibold">الكمية</label>
                 <input
-                  type="number"
-                  min="1"
+                  type="text" // Change input type to text
                   value={quantity}
                   onChange={handleQuantityChange}
-                  className="w-16 p-1 border border-gray-300 rounded-md text-center"
+                  className="w-16 p-2 border border-gray-300 rounded-md text-center"
+                  placeholder="Enter quantity"
                 />
               </div>
 
               {/* Submit Button */}
               <button
-                className="mt-6 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-dark transition duration-300"
+                className="mt-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-primary-dark transition duration-300"
                 onClick={handleSend}
               >
                 إرسال
@@ -456,28 +378,21 @@ const DoorConfigurator = ({ categoryId = "single-door" }) => {
             {/* Right Panel: Selected Door Image */}
             <div className="w-full md:w-1/2 flex justify-center">
               {isDoorLoading ? (
-                <div className="w-64 h-96 flex items-center justify-center">
-                  <div className="loader animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
+                <div className="w-40 h-64 flex items-center justify-center">
+                  <div className="loader animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-primary"></div>
                 </div>
               ) : (
                 doorImage && (
                   <img
                     src={doorImage}
-                    alt={selectedShape.name}
-                    className="w-64 h-auto rounded-lg shadow-lg"
+                    alt={selectedShape?.name || "Selected Shape"}
+                    className="w-full h-auto md:w-40 md:h-64 rounded-lg shadow-xl"
                   />
                 )
               )}
             </div>
           </div>
         )}
-
-        {/* Product Details */}
-        <div className="text-center text-sm mt-8">
-          <p>رمز المنتج: غير محدد</p>
-          <p>التصنيف: أبواب مفردة</p>
-          <p>Product ID: 27506</p>
-        </div>
       </div>
     </div>
   );

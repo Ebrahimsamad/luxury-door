@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 const Order = () => {
   const [productData, setProductData] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -18,26 +20,38 @@ const Order = () => {
     }
   }, []);
 
-  const onSubmit = (userData) => {
+  const onSubmit = async (userData) => {
     // Combine product data with user data
     const orderData = {
       ...userData,
       product: productData,
     };
 
-    // Simulate sending an email by showing the data in an alert
-    alert(`Order Summary:
-      Name: ${orderData.name}
-      Email: ${orderData.email}
-      Address: ${orderData.address}
-      Phone: ${orderData.phone}
-      
-      Product Details:
-      Color: ${orderData.product.color.name}
-      Shape: ${orderData.product.shape.name}
-      Quantity: ${orderData.product.quantity}
-      Door Image: ${orderData.product.doorImage}
-    `);
+    setIsSubmitting(true);
+
+    try {
+      // Send order data to the backend
+      const response = await fetch("https://luxury-api.vercel.app/contact-us", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("تم ارسال طلبكم بنجاح !");
+      } else {
+        toast.error(result.message || "حدث خطأ ما برجاء المحاولة مرة اخرى");
+      }
+    } catch (error) {
+      console.error("Error sending order:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -45,11 +59,11 @@ const Order = () => {
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl flex flex-col md:flex-row">
         {/* Left Side: Form */}
         <div className="w-full md:w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4">Your Information</h2>
+          <h2 className="text-2xl font-bold mb-4">معلوماتك الشخصية</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Name */}
             <div>
-              <label className="block text-gray-700">Name</label>
+              <label className="block text-gray-700">الاسم</label>
               <input
                 type="text"
                 {...register("name", { required: "Name is required" })}
@@ -64,7 +78,7 @@ const Order = () => {
 
             {/* Email */}
             <div>
-              <label className="block text-gray-700">Email</label>
+              <label className="block text-gray-700">الايميل</label>
               <input
                 type="email"
                 {...register("email", {
@@ -83,24 +97,9 @@ const Order = () => {
               )}
             </div>
 
-            {/* Address */}
-            <div>
-              <label className="block text-gray-700">Address</label>
-              <input
-                type="text"
-                {...register("address", { required: "Address is required" })}
-                className="w-full p-2 border border-gray-300 rounded-md"
-              />
-              {errors.address && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.address.message}
-                </p>
-              )}
-            </div>
-
             {/* Phone */}
             <div>
-              <label className="block text-gray-700">Phone</label>
+              <label className="block text-gray-700">رقم الهاتف</label>
               <input
                 type="tel"
                 {...register("phone", {
@@ -122,16 +121,17 @@ const Order = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-primary text-white py-2 rounded-md mt-4 hover:bg-primary-dark transition duration-300"
+              disabled={isSubmitting}
+              className="w-full bg-primary text-white py-2 rounded-md mt-4 hover:bg-primary-dark transition duration-300 flex justify-center items-center"
             >
-              Submit Order
+              {isSubmitting ? <div className="spinner"></div> : "ارسال الطلب"}
             </button>
           </form>
         </div>
 
         {/* Right Side: Product Summary */}
         <div className="w-full md:w-1/2 p-4 border-l">
-          <h2 className="text-2xl font-bold mb-4">Your Selected Product</h2>
+          <h2 className="text-xl text-center font-bold mb-4">المنتج المطلوب</h2>
           {productData ? (
             <div className="flex flex-col items-center">
               <img
@@ -141,7 +141,7 @@ const Order = () => {
               />
               <div className="text-center">
                 <p className="font-semibold">Color: {productData.color.name}</p>
-                <p className="font-semibold">Shape: {productData.shape.name}</p>
+                <p className="font-semibold">Shape: {productData.shape.code}</p>
                 <p className="font-semibold">
                   Quantity: {productData.quantity}
                 </p>
