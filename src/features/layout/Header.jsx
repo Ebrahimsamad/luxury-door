@@ -18,8 +18,18 @@ export default function Header() {
     <header className="bg-primary text-white">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo Section */}
-        <Link to="/dashboard" className="flex items-center space-x-2">
-          <img src="/IMG_4923.PNG" alt="Logo" className="h-12" />
+        <Link to="/" className="flex items-center">
+          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+            {/* النص */}
+            <div className="text-right">
+              <h1 className="text-lg font-bold text-white leading-tight">
+                دانة الرياض
+              </h1>
+              <h2 className="text-sm font-semibold text-white tracking-wide">
+                DANA AL RIYADH
+              </h2>
+            </div>
+          </div>
         </Link>
 
         {/* Navigation Links (Desktop) */}
