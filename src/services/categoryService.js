@@ -1,4 +1,4 @@
-const BASE_URL = "https://luxury-api.vercel.app/category";
+const BASE_URL = "https://luxury-api-2.vercel.app/category";
 
 export const categoryService = {
   async createCategory(data) {

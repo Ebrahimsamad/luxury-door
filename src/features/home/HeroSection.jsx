@@ -28,7 +28,7 @@ const HeroSection = () => {
     }
   }, []);
 
-  const text = "فخامة باب";
+  const text = "دانـــة الرياض";
   const letters = text.split("");
 
   // Only use animation trail if not on iOS

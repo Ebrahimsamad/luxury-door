@@ -19,7 +19,7 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo Section */}
         <Link to="/dashboard" className="flex items-center space-x-2">
-          <img src="/logoo.png" alt="Logo" className="h-12" />
+          <img src="/IMG_4923.PNG" alt="Logo" className="h-12" />
         </Link>
 
         {/* Navigation Links (Desktop) */}

@@ -15,32 +15,26 @@ export default function Footer() {
         <div className="order-1 lg:order-none flex flex-col items-center lg:items-start mb-8 lg:mb-0">
           <Link to="/dashboard" onClick={scrollToTop}>
             <img
-              src="/logoo.png"
+              src="/dana.png"
               alt="Luxury Door Logo"
-              className="h-16 mb-6 lg:h-20"
+              className="h-16 mb-6 bg-white w-48 lg:h-28"
             />
           </Link>
           <div className="space-y-4 text-white text-center lg:text-left">
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaPhone className="text-secondary text-lg lg:text-xl" />
-              <span className="text-sm lg:text-base">966510727255+</span>
+              <span className="text-sm lg:text-base">966549023870+</span>
             </div>
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaEnvelope className="text-secondary text-lg lg:text-xl" />
               <span className="text-sm lg:text-base">
-                fakhamatbab@gmail.com
+                danaalriyadh@gmail.com
               </span>
             </div>
             <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
               <FaMapMarkerAlt className="text-secondary text-lg lg:text-xl" />
               <span className="text-sm lg:text-base">
-                الرياض - العارض - طريق الامير تركي بن عبدالعزيز
-              </span>
-            </div>
-            <div className="flex items-center justify-center lg:justify-start space-x-3 lg:space-x-reverse">
-              <FaMapMarkerAlt className="text-secondary text-lg lg:text-xl" />
-              <span className="text-sm lg:text-base">
-                الخرج - طريق الملك سعود
+                الرياض - حى النرجس - شارع عثمان بن عفان
               </span>
             </div>
           </div>
@@ -48,14 +42,14 @@ export default function Footer() {
           {/* Social Media Icons */}
           <div className="flex justify-center space-x-6 lg:space-x-reverse mt-6">
             <Link
-              to="https://www.tiktok.com"
+              to="https://www.tiktok.com/@doorsbydana"
               aria-label="TikTok"
               className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary text-2xl"
             >
               <SiTiktok />
             </Link>
             <Link
-              to="https://www.instagram.com"
+              to="https://www.instagram.com/DoorsByDana"
               aria-label="Instagram"
               className="px-3 py-2 rounded-md transition-all duration-200 hover:bg-secondary hover:text-primary text-2xl"
             >
@@ -147,7 +141,7 @@ export default function Footer() {
       <div className="container mx-auto text-center mt-10 border-t border-secondary pt-6">
         <p className="text-sm lg:text-base text-center">
           &copy; 2024 All Rights Reserved
-          <span className="text-secondary cursor-pointer"> FakhamatBab</span>
+          <span className="text-secondary cursor-pointer"> DANA AL RIYADH</span>
         </p>
       </div>
     </footer>

@@ -1,4 +1,4 @@
-const API_URL = "https://luxury-api.vercel.app/sharp";
+const API_URL = "https://luxury-api-2.vercel.app/sharp";
 
 const SharpService = {
   async createSharp(sharpData) {

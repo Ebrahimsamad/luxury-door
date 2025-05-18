@@ -1,4 +1,4 @@
-const API_URL = "https://luxury-api.vercel.app/color";
+const API_URL = "https://luxury-api-2.vercel.app/color";
 
 const ColorService = {
   async createColor(colorData) {

@@ -43,31 +43,29 @@ const ContactUs = () => {
           <div className="flex flex-col items-center md:items-start space-y-6">
             <div className="flex items-center  animate-float">
               <FaPhone className="text-secondary text-2xl ml-3 transition-transform duration-300 hover:scale-110" />
-              <span className="text-lg">966510727255+</span>
+              <span className="text-lg">966549023870+</span>
             </div>
             <div className="flex items-center mb-4 animate-float">
               <FaEnvelope className="text-secondary text-2xl ml-3 transition-transform duration-300 hover:scale-110" />
-              <span className="text-lg">fakhamatbab@gmail.com</span>
+              <span className="text-lg">danaalriyadh@gmail.com</span>
             </div>
             <div className="flex items-center mb-4 animate-float">
               <FaMapMarkerAlt className="text-secondary text-2xl ml-3 transition-transform duration-300 hover:scale-110" />
-              <span className="text-lg">الرياض، المملكة العربية السعودية</span>
+              <span className="text-lg">
+                الرياض، حى النرجس , شارع عثمان بن عفان
+              </span>
             </div>
 
             <div className="w-full h-60 md:h-80 rounded-lg overflow-hidden shadow-md transition-shadow duration-300 hover:shadow-lg">
-              <MapContainer
-                center={[24.7136, 46.6753]}
-                zoom={10}
-                style={{ width: "100%", height: "100%" }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-                />
-                <Marker position={[24.7136, 46.6753]} icon={customMarker}>
-                  <Popup>الرياض، المملكة العربية السعودية</Popup>
-                </Marker>
-              </MapContainer>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.1956219365746!2d46.6632845!3d24.8652067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee567187cde89%3A0x958ccb2c423c29af!2z2YXYs9iq2LTZitmEINin2YTYudix2KfYqCDZhdit2KfZhNmK2KjYqQ!5e0!3m2!1sar!2ssa!4v1716038144212!5m2!1sar!2ssa"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
           </div>
 

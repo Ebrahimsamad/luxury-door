@@ -1,5 +1,5 @@
 // Define the base URL for your API
-const BASE_URL = "https://luxury-api.vercel.app";
+const BASE_URL = "https://luxury-api-2.vercel.app";
 
 // Utility function to handle errors globally
 const handleError = (error) => {
