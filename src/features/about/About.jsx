@@ -113,7 +113,7 @@ const AboutUs = () => {
         <div className="md:w-1/2 relative">
           <div className="w-full h-full">
             <img
-              src="/luxury1door.png"
+              src="/dana.png"
               alt="باب مصنوع من مادة WPC"
               className="w-full h-auto object-cover rounded-lg shadow-xl"
             />
