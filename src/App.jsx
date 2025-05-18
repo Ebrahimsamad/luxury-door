@@ -12,6 +12,7 @@ import Design from "./pages/Design";
 import Door from "./pages/Door";
 import SubmitOrder from "./pages/SubmitOrder";
 import { Toaster } from "react-hot-toast";
+import ScrollToTopButton from "./ui/ScrollToTopButton ";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           },
         }}
       />
+      <ScrollToTopButton />
       <WhatsAppButton />
       <Routes>
         <Route element={<Layout />}>
